@@ -5,6 +5,8 @@ from colors import bcolors
 from matrix_utility import scalar_multiplication_elementary_matrix
 
 
+#Carmel was here and tried to check if i can upload it to a private brach
+
 def make_diagonal_nonzero(matrix):
     n = len(matrix)
 
