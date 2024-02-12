@@ -1,4 +1,3 @@
-import matrix_utility
 from colors import bcolors
 from matrix_utility import row_addition_elementary_matrix, scalar_multiplication_elementary_matrix
 import numpy as np
@@ -57,6 +56,20 @@ def matrix_inverse(matrix):
 
     return identity
 
+
+def returnAtoNormal(matrix):
+    n = len(matrix)
+
+    for k in range(n):
+        # Find a non-zero element in the same column below the current zero diagonal element
+        for b in range(k + 1, n):
+            if matrix[b, k] == 0:
+                # Swap rows to make the diagonal element nonzero
+                matrix[[k, b], :] = matrix[[b, k], :]
+
+    return matrix
+
+
 def make_diagonal_nonzero(matrix, identity):
     n = len(matrix)
 
@@ -74,9 +87,9 @@ def make_diagonal_nonzero(matrix, identity):
 
 if __name__ == '__main__':
     np.set_printoptions(suppress=True, precision=4)
-    A = np.array([[1, 3, 3],
-                  [2, 0, 6],
-                  [7, 0, 9]])
+    A = np.array([[0, 2, 3],
+                  [0, 5, 6],
+                  [7, 2, 9]])
     A_before = A.copy()
 
     try:
