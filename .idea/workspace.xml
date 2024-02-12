@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="83ff167c-6c70-4587-8145-a27703fc6cef" name="Changes" comment="עד מתי אוג 19">
-      <change afterPath="$PROJECT_DIR$/condition_of_linear_equations.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gaussian_elimination.py" beforeDir="false" afterPath="$PROJECT_DIR$/gaussian_elimination.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inverse_matrix.py" beforeDir="false" afterPath="$PROJECT_DIR$/inverse_matrix.py" afterDir="false" />
-    </list>
+    <list default="true" id="83ff167c-6c70-4587-8145-a27703fc6cef" name="Changes" comment="First Assignment Completed" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -22,25 +17,8 @@
       </list>
     </option>
   </component>
-  <component name="Git.Merge.Settings">
-    <option name="BRANCH" value="origin/segev" />
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;IMrMoon&quot;
-  }
-}</component>
-  <component name="GithubPullRequestsUISettings">
-    <option name="selectedUrlAndAccountId">
-      <UrlAndAccount>
-        <option name="accountId" value="5a9983cd-6d39-42a7-b3d6-64836c1a3b6c" />
-        <option name="url" value="https://github.com/IMrMoon/matrix1.git" />
-      </UrlAndAccount>
-    </option>
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 2
@@ -51,50 +29,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.condition_of_linear_equations.executor": "Run",
-    "Python.gaussian_elimination.executor": "Run",
-    "Python.inverse_matrix.executor": "Run",
-    "Python.main.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "segev",
-    "ignore.virus.scanning.warn.message": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.editor",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.inverse_matrix.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.editor&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
-    <configuration name="inverse_matrix" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
-      <module name="matrix1" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="SDK_NAME" value="Python 3.9 (venv)" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/inverse_matrix.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="matrix1" />
       <option name="ENV_FILES" value="" />
@@ -136,10 +88,6 @@
       <updated>1706641053922</updated>
       <workItem from="1706641060624" duration="7653000" />
       <workItem from="1706648815043" duration="539000" />
-      <workItem from="1707727389076" duration="231000" />
-      <workItem from="1707727699584" duration="50000" />
-      <workItem from="1707727762330" duration="34000" />
-      <workItem from="1707727830818" duration="9142000" />
     </task>
     <task id="LOCAL-00001" summary="First Assignment Completed">
       <option name="closed" value="true" />
@@ -157,15 +105,7 @@
       <option name="project" value="LOCAL" />
       <updated>1706649065032</updated>
     </task>
-    <task id="LOCAL‎-00003" summary="עד מתי אוג 19">
-      <option name="closed" value="true" />
-      <created>1707728156930</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL‎-00003" />
-      <option name="project" value="LOCAL‎" />
-      <updated>1707728156930</updated>
-    </task>
-    <option name="localTasksCounter" value="4" />
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -196,8 +136,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="First Assignment Completed" />
-    <MESSAGE value="עד מתי אוג 19" />
-    <option name="LAST_COMMIT_MESSAGE" value="עד מתי אוג 19" />
+    <option name="LAST_COMMIT_MESSAGE" value="First Assignment Completed" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -211,9 +150,6 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/inverse_matrix_py$inverse_matrix.coverage" NAME="inverse_matrix Coverage Results" MODIFIED="1707738341920" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/inverse_matrix_py$gaussian_elimination.coverage" NAME="gaussian_elimination Coverage Results" MODIFIED="1707740858361" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/inverse_matrix_py$condition_of_linear_equations.coverage" NAME="condition_of_linear_equations Coverage Results" MODIFIED="1707740831050" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/matrix1$inverse_matrix.coverage" NAME="inverse_matrix Coverage Results" MODIFIED="1706648608409" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/matrix1$main.coverage" NAME="main Coverage Results" MODIFIED="1706641585269" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
