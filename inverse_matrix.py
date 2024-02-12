@@ -23,7 +23,6 @@ def matrix_inverse(matrix):
     # Perform row operations to transform the input matrix into the identity matrix
 
     if np.linalg.det(matrix) == 0:
-        # if matrix[i, i] == 0:
         raise ValueError("Matrix is singular, cannot find its inverse.")
     make_diagonal_nonzero(matrix, identity)
 
@@ -37,7 +36,7 @@ def matrix_inverse(matrix):
             elementary_matrix = scalar_multiplication_elementary_matrix(n, i, scalar)
             print(f"elementary matrix to make the diagonal element 1 :\n {elementary_matrix} \n")
             matrix = np.dot(elementary_matrix, matrix)
-            # print(f"The matrix after elementary operation :\n {matrix}")
+            print(f"The matrix after elementary operation :\n {matrix}")
             print(bcolors.OKGREEN,
                   "------------------------------------------------------------------------------------------------------------------",
                   bcolors.ENDC)
@@ -51,7 +50,7 @@ def matrix_inverse(matrix):
                 elementary_matrix = row_addition_elementary_matrix(n, j, i, scalar)
                 print(f"elementary matrix for R{j + 1} = R{j + 1} + ({scalar}R{i + 1}):\n {elementary_matrix} \n")
                 matrix = np.dot(elementary_matrix, matrix)
-                # print(f"The matrix after elementary operation :\n {matrix}")
+                print(f"The matrix after elementary operation :\n {matrix}")
                 print(bcolors.OKGREEN,
                       "------------------------------------------------------------------------------------------------------------------",
                       bcolors.ENDC)
@@ -88,7 +87,14 @@ def make_diagonal_nonzero(matrix, identity):
 
     return matrix, identity
 
-
+# Date: 19.2.24
+# Group members:
+# Segev Chen 322433400
+# Gad Gadi Hasson 207898123
+# Carmel Dor 316015882
+# Artiom Bondar 332692730
+# Git:https://github.com/IMrMoon/matrix1.git
+# Name:
 if __name__ == '__main__':
     np.set_printoptions(suppress=True, precision=4)
     A = np.array([[0, 5, 7],
@@ -114,17 +120,15 @@ if __name__ == '__main__':
 
     print(X)
 
-    import numpy as np
-
 
     # the checking if the inverse is the real inverse of the matrix and return if the values
-    #between these 2 arrays are equal in some lvl return true, else return false or if we have nans return false
+    # between these 2 arrays are equal in some lvl return true, else return false or if we have nans return false
     def checkInverse(inverseMatrix, matrix):
-        #check the size of the matrix
+        # check the size of the matrix
         n = matrix.shape[0]
-        #creating a dot multipication between the original matrix to the inverse one
+        # creating a dot multiplication between the original matrix to the inverse one
         product = np.dot(matrix, inverseMatrix)
-        #create a id matrix size n like the matrix
+        # create an id matrix size n like the matrix
         identity = np.identity(n)
         return np.allclose(product, identity)
 

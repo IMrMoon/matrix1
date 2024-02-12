@@ -15,13 +15,18 @@ def make_diagonal_nonzero(matrix):
                 if matrix[b, k] != 0:
                     # Swap rows to make the diagonal element nonzero
                     matrix[[k, b], :] = matrix[[b, k], :]
-                    #identity[[k, b], :] = identity[[b, k], :]
+                    # identity[[k, b], :] = identity[[b, k], :]
 
     return matrix
+
+
 def gaussianElimination(mat):
     N = len(mat)
 
-    #idk if we need...maybe add check for zero in forward?
+    # if np.linalg.det(mat) == 0:
+    #     pass
+
+# IDK if we need...maybe add check for zero in forward?!!!!check GAD
     make_diagonal_nonzero(mat)
 
     singular_flag = forward_substitution(mat)
@@ -51,7 +56,7 @@ def forward_substitution(mat):
     for k in range(N):
         # Partial Pivoting: Find the pivot row with the largest absolute value in the current column
 
-        #to make the diagonal to 1 and all the down triangel to zero.
+        # to make the diagonal to 1 and all the down triangle to zero.
         scalar = 1.0 / mat[k, k]
         elementary_matrix = scalar_multiplication_elementary_matrix(N, k, scalar)
         mat = np.dot(elementary_matrix, mat)
@@ -103,20 +108,23 @@ def backward_substitution(mat):
             x[i] -= mat[i][j] * x[j]
 
         x[i] = (x[i] / mat[i][i])
-    #added!
+    # added!
     print("\n", x)
     return x
 
-
-
-
+# Date: 19.2.24
+# Group members:
+# Segev Chen 322433400
+# Gad Gadi Hasson 207898123
+# Carmel Dor 316015882
+# Artiom Bondar 332692730
+# Git:https://github.com/IMrMoon/matrix1.git
+# Name:
 if __name__ == '__main__':
 
     A_b = np.array([[0, 5, 7, 9],
-            [3, 1, 4, 18],
-            [0, 0, 1, 27]])
-
-
+                    [3, 1, 4, 18],
+                    [0, 0, 1, 27]])
 
 
     result = gaussianElimination(A_b)
