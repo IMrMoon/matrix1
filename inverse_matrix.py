@@ -89,6 +89,19 @@ def make_diagonal_nonzero(matrix, identity):
     return matrix, identity
 
 
+# the checking if the inverse is the real inverse of the matrix and return if the values
+    # between these 2 arrays are equal in some lvl return true, else return false or if we have nans return false
+def checkInverse(inverseMatrix, matrix):
+    # check the size of the matrix
+    n = matrix.shape[0]
+    # creating a dot multipication between the original matrix to the inverse one
+    product = np.dot(matrix, inverseMatrix)
+    # create a id matrix size n like the matrix
+    identity = np.identity(n)
+    return np.allclose(product, identity)
+
+
+
 if __name__ == '__main__':
     np.set_printoptions(suppress=True, precision=4)
     A = np.array([[0, 5, 7],
@@ -113,21 +126,5 @@ if __name__ == '__main__':
     X = np.dot(A_inverse, B)
 
     print(X)
-
-    import numpy as np
-
-
-    # the checking if the inverse is the real inverse of the matrix and return if the values
-    #between these 2 arrays are equal in some lvl return true, else return false or if we have nans return false
-    def checkInverse(inverseMatrix, matrix):
-        #check the size of the matrix
-        n = matrix.shape[0]
-        #creating a dot multipication between the original matrix to the inverse one
-        product = np.dot(matrix, inverseMatrix)
-        #create a id matrix size n like the matrix
-        identity = np.identity(n)
-        return np.allclose(product, identity)
-
-
     invA = A_inverse
     print("the result of the check is: ", checkInverse(invA, A_before))
