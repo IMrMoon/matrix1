@@ -27,15 +27,17 @@ def matrix_inverse(matrix):
         raise ValueError("Matrix is singular, cannot find its inverse.")
     make_diagonal_nonzero(matrix, identity)
 
+    counter = 0
     for i in range(n):
 
         if matrix[i, i] != 1:
             # Scale the current row to make the diagonal element 1
             scalar = 1.0 / matrix[i, i]
+            counter += 1
             elementary_matrix = scalar_multiplication_elementary_matrix(n, i, scalar)
             print(f"elementary matrix to make the diagonal element 1 :\n {elementary_matrix} \n")
             matrix = np.dot(elementary_matrix, matrix)
-            print(f"The matrix after elementary operation :\n {matrix}")
+            # print(f"The matrix after elementary operation :\n {matrix}")
             print(bcolors.OKGREEN,
                   "------------------------------------------------------------------------------------------------------------------",
                   bcolors.ENDC)
@@ -45,14 +47,16 @@ def matrix_inverse(matrix):
         for j in range(n):
             if i != j:
                 scalar = -matrix[j, i]
+                counter += 1
                 elementary_matrix = row_addition_elementary_matrix(n, j, i, scalar)
                 print(f"elementary matrix for R{j + 1} = R{j + 1} + ({scalar}R{i + 1}):\n {elementary_matrix} \n")
                 matrix = np.dot(elementary_matrix, matrix)
-                print(f"The matrix after elementary operation :\n {matrix}")
+                # print(f"The matrix after elementary operation :\n {matrix}")
                 print(bcolors.OKGREEN,
                       "------------------------------------------------------------------------------------------------------------------",
                       bcolors.ENDC)
                 identity = np.dot(elementary_matrix, identity)
+    print(f"the counter of the elemntary matrix is:\n {counter}\n")
 
     return identity
 
@@ -87,9 +91,9 @@ def make_diagonal_nonzero(matrix, identity):
 
 if __name__ == '__main__':
     np.set_printoptions(suppress=True, precision=4)
-    A = np.array([[0, 2, 3],
-                  [0, 5, 6],
-                  [7, 2, 9]])
+    A = np.array([[0, 5, 7],
+                  [3, 1, 4],
+                  [0, 0, 1]])
     A_before = A.copy()
 
     try:
@@ -103,7 +107,7 @@ if __name__ == '__main__':
         print(str(e))
     # returnAtoNormal(A)
     # the results vector
-    B = np.array([7, 2, 5])
+    B = np.array([9, 18, 27])
 
     # dot mul the inverse matrix A with the B vector of the results to calculate the X which is the final result vector
     X = np.dot(A_inverse, B)

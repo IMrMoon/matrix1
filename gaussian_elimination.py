@@ -2,10 +2,27 @@ import numpy as np
 from numpy.linalg import norm, inv
 
 from colors import bcolors
+from matrix_utility import scalar_multiplication_elementary_matrix
 
 
+def make_diagonal_nonzero(matrix):
+    n = len(matrix)
+
+    for k in range(n):
+        if matrix[k, k] == 0:
+            # Find a non-zero element in the same column below the current zero diagonal element
+            for b in range(k + 1, n):
+                if matrix[b, k] != 0:
+                    # Swap rows to make the diagonal element nonzero
+                    matrix[[k, b], :] = matrix[[b, k], :]
+                    #identity[[k, b], :] = identity[[b, k], :]
+
+    return matrix
 def gaussianElimination(mat):
     N = len(mat)
+
+    #idk if we need...maybe add check for zero in forward?
+    make_diagonal_nonzero(mat)
 
     singular_flag = forward_substitution(mat)
 
@@ -32,8 +49,12 @@ def swap_row(mat, i, j):
 def forward_substitution(mat):
     N = len(mat)
     for k in range(N):
-
         # Partial Pivoting: Find the pivot row with the largest absolute value in the current column
+
+        #to make the diagonal to 1 and all the down triangel to zero.
+        scalar = 1.0 / mat[k, k]
+        elementary_matrix = scalar_multiplication_elementary_matrix(N, k, scalar)
+        mat = np.dot(elementary_matrix, mat)
         pivot_row = k
         v_max = mat[pivot_row][k]
         for i in range(k + 1, N):
@@ -43,7 +64,7 @@ def forward_substitution(mat):
 
         # if a principal diagonal element is zero,it denotes that matrix is singular,
         # and will lead to a division-by-zero later.
-        if not mat[k][pivot_row]:
+        if mat[k][k] == 0:
             return k  # Matrix is singular
 
         # Swap the current row with the pivot row
@@ -62,6 +83,7 @@ def forward_substitution(mat):
 
             # filling lower triangular matrix with zeros
             mat[i][k] = 0
+    print(mat)
 
     return -1
 
@@ -81,21 +103,26 @@ def backward_substitution(mat):
             x[i] -= mat[i][j] * x[j]
 
         x[i] = (x[i] / mat[i][i])
-
+    #added!
+    print("\n", x)
     return x
+
+
 
 
 if __name__ == '__main__':
 
-    A_b = [[1, -1, 2, -1, -8],
-        [2, -2, 3, -3, -20],
-        [1, 1, 1, 0, -2],
-        [1, -1, 4, 3, 4]]
+    A_b = np.array([[0, 5, 7, 9],
+            [3, 1, 4, 18],
+            [0, 0, 1, 27]])
+
+
+
 
     result = gaussianElimination(A_b)
     if isinstance(result, str):
         print(result)
     else:
-        print(bcolors.OKBLUE,"\nSolution for the system:")
+        print(bcolors.OKBLUE, "\nSolution for the system:")
         for x in result:
             print("{:.6f}".format(x))
