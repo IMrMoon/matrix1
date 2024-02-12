@@ -1,0 +1,224 @@
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"Black\">\r\n    <option name=\"sdkName\" value=\"Python 3.12 (matrix1)\" />\r\n  </component>\r\n  <component name=\"ProjectRootManager\" version=\"2\" project-jdk-name=\"Python 3.12 (matrix1)\" project-jdk-type=\"Python SDK\" />\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	
++++ b/.idea/misc.xml	
+@@ -3,5 +3,5 @@
+   <component name="Black">
+     <option name="sdkName" value="Python 3.12 (matrix1)" />
+   </component>
+-  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.12 (matrix1)" project-jdk-type="Python SDK" />
++  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.10" project-jdk-type="Python SDK" />
+ </project>
+\ No newline at end of file
+Index: inverse_matrix.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import matrix_utility\r\nfrom colors import bcolors\r\nfrom matrix_utility import row_addition_elementary_matrix, scalar_multiplication_elementary_matrix\r\nimport numpy as np\r\n\r\n\"\"\"\r\nFunction that find the inverse of non-singular matrix\r\nThe function performs elementary row operations to transform it into the identity matrix. \r\nThe resulting identity matrix will be the inverse of the input matrix if it is non-singular.\r\n If the input matrix is singular (i.e., its diagonal elements become zero during row operations), it raises an error.\r\n\"\"\"\r\n\r\n\r\ndef matrix_inverse(matrix):\r\n    print(bcolors.OKBLUE,\r\n          f\"=================== Finding the inverse of a non-singular matrix using elementary row operations ===================\\n {matrix}\\n\",\r\n          bcolors.ENDC)\r\n    if matrix.shape[0] != matrix.shape[1]:\r\n        raise ValueError(\"Input matrix must be square.\")\r\n\r\n    n = matrix.shape[0]\r\n    identity = np.identity(n)\r\n\r\n    # Perform row operations to transform the input matrix into the identity matrix\r\n\r\n    if np.linalg.det(matrix) == 0:\r\n        # if matrix[i, i] == 0:\r\n        raise ValueError(\"Matrix is singular, cannot find its inverse.\")\r\n    make_diagonal_nonzero(matrix, identity)\r\n\r\n    for i in range(n):\r\n\r\n        if matrix[i, i] != 1:\r\n            # Scale the current row to make the diagonal element 1\r\n            scalar = 1.0 / matrix[i, i]\r\n            elementary_matrix = scalar_multiplication_elementary_matrix(n, i, scalar)\r\n            print(f\"elementary matrix to make the diagonal element 1 :\\n {elementary_matrix} \\n\")\r\n            matrix = np.dot(elementary_matrix, matrix)\r\n            print(f\"The matrix after elementary operation :\\n {matrix}\")\r\n            print(bcolors.OKGREEN,\r\n                  \"------------------------------------------------------------------------------------------------------------------\",\r\n                  bcolors.ENDC)\r\n            identity = np.dot(elementary_matrix, identity)\r\n\r\n        # Zero out the elements above and below the diagonal\r\n        for j in range(n):\r\n            if i != j:\r\n                scalar = -matrix[j, i]\r\n                elementary_matrix = row_addition_elementary_matrix(n, j, i, scalar)\r\n                print(f\"elementary matrix for R{j + 1} = R{j + 1} + ({scalar}R{i + 1}):\\n {elementary_matrix} \\n\")\r\n                matrix = np.dot(elementary_matrix, matrix)\r\n                print(f\"The matrix after elementary operation :\\n {matrix}\")\r\n                print(bcolors.OKGREEN,\r\n                      \"------------------------------------------------------------------------------------------------------------------\",\r\n                      bcolors.ENDC)\r\n                identity = np.dot(elementary_matrix, identity)\r\n\r\n    return identity\r\n\r\n\r\ndef returnAtoNormal(matrix):\r\n    n = len(matrix)\r\n\r\n    for k in range(n):\r\n        # Find a non-zero element in the same column below the current zero diagonal element\r\n        for b in range(k + 1, n):\r\n            if matrix[b, k] == 0:\r\n                # Swap rows to make the diagonal element nonzero\r\n                matrix[[k, b], :] = matrix[[b, k], :]\r\n\r\n    return matrix\r\n\r\n\r\ndef make_diagonal_nonzero(matrix, identity):\r\n    n = len(matrix)\r\n\r\n    for k in range(n):\r\n        if matrix[k, k] == 0:\r\n            # Find a non-zero element in the same column below the current zero diagonal element\r\n            for b in range(k + 1, n):\r\n                if matrix[b, k] != 0:\r\n                    # Swap rows to make the diagonal element nonzero\r\n                    matrix[[k, b], :] = matrix[[b, k], :]\r\n                    identity[[k, b], :] = identity[[b, k], :]\r\n\r\n    return matrix, identity\r\n\r\n\r\nif __name__ == '__main__':\r\n    np.set_printoptions(suppress=True, precision=4)\r\n    A = np.array([[0, 2, 3],\r\n                  [0, 5, 6],\r\n                  [7, 2, 9]])\r\n    A_before = A.copy()\r\n\r\n    try:\r\n        A_inverse = matrix_inverse(A)\r\n        print(bcolors.OKBLUE, \"\\nInverse of matrix A: \\n\", A_inverse)\r\n        print(\r\n            \"=====================================================================================================================\",\r\n            bcolors.ENDC)\r\n\r\n    except ValueError as e:\r\n        print(str(e))\r\n    # returnAtoNormal(A)\r\n    # the results vector\r\n    B = np.array([7, 2, 5])\r\n\r\n    # dot mul the inverse matrix A with the B vector of the results to calculate the X which is the final result vector\r\n    X = np.dot(A_inverse, B)\r\n\r\n    print(X)\r\n\r\n    import numpy as np\r\n\r\n\r\n    # the checking if the inverse is the real inverse of the matrix and return if the values\r\n    #between these 2 arrays are equal in some lvl return true, else return false or if we have nans return false\r\n    def checkInverse(inverseMatrix, matrix):\r\n        #check the size of the matrix\r\n        n = matrix.shape[0]\r\n        #creating a dot multipication between the original matrix to the inverse one\r\n        product = np.dot(matrix, inverseMatrix)\r\n        #create a id matrix size n like the matrix\r\n        identity = np.identity(n)\r\n        return np.allclose(product, identity)\r\n\r\n\r\n    invA = A_inverse\r\n    print(\"the result of the check is: \", checkInverse(invA, A_before))\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/inverse_matrix.py b/inverse_matrix.py
+--- a/inverse_matrix.py	
++++ b/inverse_matrix.py	
+@@ -88,9 +88,9 @@
+ 
+ if __name__ == '__main__':
+     np.set_printoptions(suppress=True, precision=4)
+-    A = np.array([[0, 2, 3],
+-                  [0, 5, 6],
+-                  [7, 2, 9]])
++    A = np.array([[0, 1, -1],
++                  [3, -1, 1],
++                  [1, 1, -2]])
+     A_before = A.copy()
+ 
+     try:
+@@ -104,7 +104,7 @@
+         print(str(e))
+     # returnAtoNormal(A)
+     # the results vector
+-    B = np.array([7, 2, 5])
++    B = np.array([-1, 4, -3])
+ 
+     # dot mul the inverse matrix A with the B vector of the results to calculate the X which is the final result vector
+     X = np.dot(A_inverse, B)
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"83ff167c-6c70-4587-8145-a27703fc6cef\" name=\"Changes\" comment=\"First Assignment Completed\" />\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Python Script\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 2\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2bgeGVqHLgL3rTsYE3vk26xsF3z\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;Python.inverse_matrix.executor&quot;: &quot;Run&quot;,\r\n    &quot;Python.main.executor&quot;: &quot;Run&quot;,\r\n    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;git-widget-placeholder&quot;: &quot;master&quot;,\r\n    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,\r\n    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,\r\n    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,\r\n    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,\r\n    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,\r\n    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,\r\n    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.editor&quot;,\r\n    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;\r\n  }\r\n}</component>\r\n  <component name=\"RunManager\">\r\n    <configuration name=\"main\" type=\"PythonConfigurationType\" factoryName=\"Python\" nameIsGenerated=\"true\">\r\n      <module name=\"matrix1\" />\r\n      <option name=\"ENV_FILES\" value=\"\" />\r\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\r\n      <option name=\"PARENT_ENVS\" value=\"true\" />\r\n      <envs>\r\n        <env name=\"PYTHONUNBUFFERED\" value=\"1\" />\r\n      </envs>\r\n      <option name=\"SDK_HOME\" value=\"\" />\r\n      <option name=\"WORKING_DIRECTORY\" value=\"$PROJECT_DIR$\" />\r\n      <option name=\"IS_MODULE_SDK\" value=\"true\" />\r\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\r\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\r\n      <EXTENSION ID=\"PythonCoverageRunConfigurationExtension\" runner=\"coverage.py\" />\r\n      <option name=\"SCRIPT_NAME\" value=\"$PROJECT_DIR$/main.py\" />\r\n      <option name=\"PARAMETERS\" value=\"\" />\r\n      <option name=\"SHOW_COMMAND_LINE\" value=\"false\" />\r\n      <option name=\"EMULATE_TERMINAL\" value=\"false\" />\r\n      <option name=\"MODULE_MODE\" value=\"false\" />\r\n      <option name=\"REDIRECT_INPUT\" value=\"false\" />\r\n      <option name=\"INPUT_FILE\" value=\"\" />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n  </component>\r\n  <component name=\"SharedIndexes\">\r\n    <attachedChunks>\r\n      <set>\r\n        <option value=\"bundled-python-sdk-5a2391486177-2887949eec09-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-233.13763.11\" />\r\n      </set>\r\n    </attachedChunks>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"83ff167c-6c70-4587-8145-a27703fc6cef\" name=\"Changes\" comment=\"\" />\r\n      <created>1706641053922</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1706641053922</updated>\r\n      <workItem from=\"1706641060624\" duration=\"7653000\" />\r\n      <workItem from=\"1706648815043\" duration=\"539000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"First Assignment Completed\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1706648918282</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1706648918282</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"First Assignment Completed\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1706649065032</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1706649065032</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"3\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State>\r\n              <option name=\"FILTERS\">\r\n                <map>\r\n                  <entry key=\"branch\">\r\n                    <value>\r\n                      <list>\r\n                        <option value=\"master\" />\r\n                      </list>\r\n                    </value>\r\n                  </entry>\r\n                </map>\r\n              </option>\r\n            </State>\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"First Assignment Completed\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"First Assignment Completed\" />\r\n  </component>\r\n  <component name=\"XDebuggerManager\">\r\n    <breakpoint-manager>\r\n      <breakpoints>\r\n        <line-breakpoint enabled=\"true\" suspend=\"THREAD\" type=\"python-line\">\r\n          <url>file://$PROJECT_DIR$/main.py</url>\r\n          <line>1</line>\r\n          <option name=\"timeStamp\" value=\"1\" />\r\n        </line-breakpoint>\r\n      </breakpoints>\r\n    </breakpoint-manager>\r\n  </component>\r\n  <component name=\"com.intellij.coverage.CoverageDataManagerImpl\">\r\n    <SUITE FILE_PATH=\"coverage/matrix1$inverse_matrix.coverage\" NAME=\"inverse_matrix Coverage Results\" MODIFIED=\"1706648608409\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"coverage.py\" COVERAGE_BY_TEST_ENABLED=\"true\" COVERAGE_TRACING_ENABLED=\"false\" WORKING_DIRECTORY=\"$PROJECT_DIR$\" />\r\n    <SUITE FILE_PATH=\"coverage/matrix1$main.coverage\" NAME=\"main Coverage Results\" MODIFIED=\"1706641585269\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"coverage.py\" COVERAGE_BY_TEST_ENABLED=\"true\" COVERAGE_TRACING_ENABLED=\"false\" WORKING_DIRECTORY=\"$PROJECT_DIR$\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	
++++ b/.idea/workspace.xml	
+@@ -4,7 +4,12 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="83ff167c-6c70-4587-8145-a27703fc6cef" name="Changes" comment="First Assignment Completed" />
++    <list default="true" id="83ff167c-6c70-4587-8145-a27703fc6cef" name="Changes" comment="First Assignment Completed">
++      <change beforePath="$PROJECT_DIR$/.idea/matrix1.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/matrix1.iml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/inverse_matrix.py" beforeDir="false" afterPath="$PROJECT_DIR$/inverse_matrix.py" afterDir="false" />
++    </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+@@ -18,10 +23,22 @@
+     </option>
+   </component>
+   <component name="Git.Settings">
++    <option name="RECENT_BRANCH_BY_REPOSITORY">
++      <map>
++        <entry key="$PROJECT_DIR$" value="master" />
++      </map>
++    </option>
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
++  </component>
++  <component name="MarkdownSettingsMigration">
++    <option name="stateVersion" value="1" />
++  </component>
++  <component name="ProblemsViewState">
++    <option name="selectedTabId" value="CurrentFile" />
+   </component>
+   <component name="ProjectColorInfo">{
+-  &quot;associatedIndex&quot;: 2
++  &quot;customColor&quot;: &quot;&quot;,
++  &quot;associatedIndex&quot;: 4
+ }</component>
+   <component name="ProjectId" id="2bgeGVqHLgL3rTsYE3vk26xsF3z" />
+   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+@@ -31,18 +48,15 @@
+   </component>
+   <component name="PropertiesComponent">{
+   &quot;keyToString&quot;: {
+-    &quot;Python.inverse_matrix.executor&quot;: &quot;Run&quot;,
+-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
++    &quot;Python.main.executor&quot;: &quot;Debug&quot;,
+     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
++    &quot;last_opened_file_path&quot;: &quot;C:/Users/LENOVO/PyCharmProjects/matrix1&quot;,
+     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.editor&quot;,
++    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.tabs&quot;,
+     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+   }
+ }</component>
+@@ -55,13 +69,13 @@
+       <envs>
+         <env name="PYTHONUNBUFFERED" value="1" />
+       </envs>
+-      <option name="SDK_HOME" value="" />
++      <option name="SDK_HOME" value="C:\Users\LENOVO\AppData\Local\Programs\Python\Python310\python.exe" />
+       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+-      <option name="IS_MODULE_SDK" value="true" />
++      <option name="IS_MODULE_SDK" value="false" />
+       <option name="ADD_CONTENT_ROOTS" value="true" />
+       <option name="ADD_SOURCE_ROOTS" value="true" />
+       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
++      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/inverse_matrix.py" />
+       <option name="PARAMETERS" value="" />
+       <option name="SHOW_COMMAND_LINE" value="false" />
+       <option name="EMULATE_TERMINAL" value="false" />
+@@ -74,7 +88,7 @@
+   <component name="SharedIndexes">
+     <attachedChunks>
+       <set>
+-        <option value="bundled-python-sdk-5a2391486177-2887949eec09-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-233.13763.11" />
++        <option value="bundled-python-sdk-50da183f06c8-2887949eec09-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-233.13135.95" />
+       </set>
+     </attachedChunks>
+   </component>
+@@ -88,6 +102,13 @@
+       <updated>1706641053922</updated>
+       <workItem from="1706641060624" duration="7653000" />
+       <workItem from="1706648815043" duration="539000" />
++      <workItem from="1706802880078" duration="4625000" />
++      <workItem from="1706810519094" duration="108000" />
++      <workItem from="1707126850515" duration="2911000" />
++      <workItem from="1707130020158" duration="11555000" />
++      <workItem from="1707157546738" duration="558000" />
++      <workItem from="1707326270028" duration="1914000" />
++      <workItem from="1707337422567" duration="613000" />
+     </task>
+     <task id="LOCAL-00001" summary="First Assignment Completed">
+       <option name="closed" value="true" />
+@@ -112,6 +133,21 @@
+     <option name="version" value="3" />
+   </component>
+   <component name="Vcs.Log.Tabs.Properties">
++    <option name="RECENT_FILTERS">
++      <map>
++        <entry key="Branch">
++          <value>
++            <list>
++              <RecentGroup>
++                <option name="FILTER_VALUES">
++                  <option value="segev" />
++                </option>
++              </RecentGroup>
++            </list>
++          </value>
++        </entry>
++      </map>
++    </option>
+     <option name="TAB_STATES">
+       <map>
+         <entry key="MAIN">
+@@ -138,19 +174,9 @@
+     <MESSAGE value="First Assignment Completed" />
+     <option name="LAST_COMMIT_MESSAGE" value="First Assignment Completed" />
+   </component>
+-  <component name="XDebuggerManager">
+-    <breakpoint-manager>
+-      <breakpoints>
+-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+-          <url>file://$PROJECT_DIR$/main.py</url>
+-          <line>1</line>
+-          <option name="timeStamp" value="1" />
+-        </line-breakpoint>
+-      </breakpoints>
+-    </breakpoint-manager>
+-  </component>
+   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+     <SUITE FILE_PATH="coverage/matrix1$inverse_matrix.coverage" NAME="inverse_matrix Coverage Results" MODIFIED="1706648608409" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
++    <SUITE FILE_PATH="coverage/inverse_matrix_py$main.coverage" NAME="main Coverage Results" MODIFIED="1707144745070" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+     <SUITE FILE_PATH="coverage/matrix1$main.coverage" NAME="main Coverage Results" MODIFIED="1706641585269" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: .idea/matrix1.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<module type=\"PYTHON_MODULE\" version=\"4\">\r\n  <component name=\"NewModuleRootManager\">\r\n    <content url=\"file://$MODULE_DIR$\">\r\n      <excludeFolder url=\"file://$MODULE_DIR$/.venv\" />\r\n    </content>\r\n    <orderEntry type=\"inheritedJdk\" />\r\n    <orderEntry type=\"sourceFolder\" forTests=\"false\" />\r\n  </component>\r\n</module>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/matrix1.iml b/.idea/matrix1.iml
+--- a/.idea/matrix1.iml	
++++ b/.idea/matrix1.iml	
+@@ -4,7 +4,7 @@
+     <content url="file://$MODULE_DIR$">
+       <excludeFolder url="file://$MODULE_DIR$/.venv" />
+     </content>
+-    <orderEntry type="inheritedJdk" />
++    <orderEntry type="jdk" jdkName="Python 3.10" jdkType="Python SDK" />
+     <orderEntry type="sourceFolder" forTests="false" />
+   </component>
+ </module>
+\ No newline at end of file
