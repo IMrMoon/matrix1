@@ -122,9 +122,10 @@ def backward_substitution(mat):
 # Name:
 if __name__ == '__main__':
 
-    A_b = np.array([[6, 5, 7, 9],
-                    [0, 1, 4, 18],
-                    [0, 0, 1, 27]])
+    A_b = np.array([[1, 2, 3, 4, 5],
+                    [2, 3, 4, 5, 1],
+                    [8, 8, 8, 8, 1],
+                    [24, 15, 22, 1, 8]])
 
 
     result = gaussianElimination(A_b)
