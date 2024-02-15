@@ -1,3 +1,5 @@
+import math
+
 from colors import bcolors
 from matrix_utility import row_addition_elementary_matrix, scalar_multiplication_elementary_matrix
 import numpy as np
@@ -42,8 +44,22 @@ def matrix_inverse(matrix):
                   bcolors.ENDC)
             identity = np.dot(elementary_matrix, identity)
 
-        # Zero out the elements above and below the diagonal
-        for j in range(n):
+        # Zero out the elements below the diagonal
+        for j in range(i+1, n):
+            if i != j and matrix[j, i] != 0:
+                scalar = -matrix[j, i]
+                counter += 1
+                elementary_matrix = row_addition_elementary_matrix(n, j, i, scalar)
+                print(f"elementary matrix for R{j + 1} = R{j + 1} + ({scalar}R{i + 1}):\n {elementary_matrix} \n")
+                matrix = np.dot(elementary_matrix, matrix)
+                print(f"The matrix after elementary operation :\n {matrix}")
+                print(bcolors.OKGREEN,
+                    "------------------------------------------------------------------------------------------------------------------",
+                    bcolors.ENDC)
+                identity = np.dot(elementary_matrix, identity)
+    #reverse running in the matrix to make the above the diagonal zero
+    for i in range(n - 1, -1, -1):
+        for j in range(i - 1, -1, -1):
             if i != j:
                 scalar = -matrix[j, i]
                 counter += 1
@@ -52,8 +68,8 @@ def matrix_inverse(matrix):
                 matrix = np.dot(elementary_matrix, matrix)
                 print(f"The matrix after elementary operation :\n {matrix}")
                 print(bcolors.OKGREEN,
-                      "------------------------------------------------------------------------------------------------------------------",
-                      bcolors.ENDC)
+                    "------------------------------------------------------------------------------------------------------------------",
+                    bcolors.ENDC)
                 identity = np.dot(elementary_matrix, identity)
     print(f"the counter of the elemntary matrix is:\n {counter}\n")
 
@@ -99,7 +115,7 @@ if __name__ == '__main__':
     np.set_printoptions(suppress=True, precision=4)
     A = np.array([[0, 5, 7],
                   [3, 1, 4],
-                  [0, 0, 1]])
+                  [0, 3, 1]])
     A_before = A.copy()
 
     try:
