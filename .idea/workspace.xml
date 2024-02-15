@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="83ff167c-6c70-4587-8145-a27703fc6cef" name="Changes" comment="עד מתי אוג 19">
+    <list default="true" id="83ff167c-6c70-4587-8145-a27703fc6cef" name="Changes" comment="Final adjustments, Id added and fix all">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/condition_of_linear_equations.py" beforeDir="false" afterPath="$PROJECT_DIR$/condition_of_linear_equations.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gaussian_elimination.py" beforeDir="false" afterPath="$PROJECT_DIR$/gaussian_elimination.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inverse_matrix.py" beforeDir="false" afterPath="$PROJECT_DIR$/inverse_matrix.py" afterDir="false" />
     </list>
@@ -46,6 +45,9 @@
         <option name="url" value="https://github.com/IMrMoon/matrix1.git" />
       </UrlAndAccount>
     </option>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/inverse_matrix.py" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 2
@@ -145,7 +147,12 @@
       <workItem from="1707727699584" duration="50000" />
       <workItem from="1707727762330" duration="34000" />
       <workItem from="1707727830818" duration="9744000" />
-      <workItem from="1707755020934" duration="5654000" />
+      <workItem from="1707755020934" duration="6229000" />
+      <workItem from="1707774250781" duration="196000" />
+      <workItem from="1707813030533" duration="26000" />
+      <workItem from="1707813282183" duration="1084000" />
+      <workItem from="1707828626621" duration="5500000" />
+      <workItem from="1708006357764" duration="1573000" />
     </task>
     <task id="LOCAL-00001" summary="First Assignment Completed">
       <option name="closed" value="true" />
@@ -179,7 +186,15 @@
       <option name="project" value="LOCAL‎" />
       <updated>1707741797535</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL‎-00005" summary="Final adjustments, Id added and fix all">
+      <option name="closed" value="true" />
+      <created>1707769091099</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL‎-00005" />
+      <option name="project" value="LOCAL‎" />
+      <updated>1707769091099</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -211,7 +226,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="First Assignment Completed" />
     <MESSAGE value="עד מתי אוג 19" />
-    <option name="LAST_COMMIT_MESSAGE" value="עד מתי אוג 19" />
+    <MESSAGE value="Final adjustments, Id added and fix all" />
+    <option name="LAST_COMMIT_MESSAGE" value="Final adjustments, Id added and fix all" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -225,8 +241,8 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/inverse_matrix_py$inverse_matrix.coverage" NAME="inverse_matrix Coverage Results" MODIFIED="1707768617429" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/inverse_matrix_py$gaussian_elimination.coverage" NAME="gaussian_elimination Coverage Results" MODIFIED="1707768620411" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/inverse_matrix_py$inverse_matrix.coverage" NAME="inverse_matrix Coverage Results" MODIFIED="1708007730789" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/inverse_matrix_py$gaussian_elimination.coverage" NAME="gaussian_elimination Coverage Results" MODIFIED="1707828642070" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/inverse_matrix_py$condition_of_linear_equations.coverage" NAME="condition_of_linear_equations Coverage Results" MODIFIED="1707768748862" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/matrix1$inverse_matrix.coverage" NAME="inverse_matrix Coverage Results" MODIFIED="1706648608409" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/matrix1$main.coverage" NAME="main Coverage Results" MODIFIED="1706641585269" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

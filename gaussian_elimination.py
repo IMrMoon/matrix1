@@ -122,8 +122,8 @@ def backward_substitution(mat):
 # Name:
 if __name__ == '__main__':
 
-    A_b = np.array([[0, 5, 7, 9],
-                    [3, 1, 4, 18],
+    A_b = np.array([[6, 5, 7, 9],
+                    [0, 1, 4, 18],
                     [0, 0, 1, 27]])
 
 
