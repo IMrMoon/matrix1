@@ -1,5 +1,3 @@
-import math
-
 from colors import bcolors
 from matrix_utility import row_addition_elementary_matrix, scalar_multiplication_elementary_matrix
 import numpy as np
@@ -25,6 +23,7 @@ def matrix_inverse(matrix):
     # Perform row operations to transform the input matrix into the identity matrix
 
     if np.linalg.det(matrix) == 0:
+        # if matrix[i, i] == 0:
         raise ValueError("Matrix is singular, cannot find its inverse.")
     make_diagonal_nonzero(matrix, identity)
 
@@ -38,38 +37,24 @@ def matrix_inverse(matrix):
             elementary_matrix = scalar_multiplication_elementary_matrix(n, i, scalar)
             print(f"elementary matrix to make the diagonal element 1 :\n {elementary_matrix} \n")
             matrix = np.dot(elementary_matrix, matrix)
-            print(f"The matrix after elementary operation :\n {matrix}")
+            # print(f"The matrix after elementary operation :\n {matrix}")
             print(bcolors.OKGREEN,
                   "------------------------------------------------------------------------------------------------------------------",
                   bcolors.ENDC)
             identity = np.dot(elementary_matrix, identity)
 
-        # Zero out the elements below the diagonal
-        for j in range(i+1, n):
-            if i != j and matrix[j, i] != 0:
-                scalar = -matrix[j, i]
-                counter += 1
-                elementary_matrix = row_addition_elementary_matrix(n, j, i, scalar)
-                print(f"elementary matrix for R{j + 1} = R{j + 1} + ({scalar}R{i + 1}):\n {elementary_matrix} \n")
-                matrix = np.dot(elementary_matrix, matrix)
-                print(f"The matrix after elementary operation :\n {matrix}")
-                print(bcolors.OKGREEN,
-                    "------------------------------------------------------------------------------------------------------------------",
-                    bcolors.ENDC)
-                identity = np.dot(elementary_matrix, identity)
-    #reverse running in the matrix to make the above the diagonal zero
-    for i in range(n - 1, -1, -1):
-        for j in range(i - 1, -1, -1):
+        # Zero out the elements above and below the diagonal
+        for j in range(n):
             if i != j:
                 scalar = -matrix[j, i]
                 counter += 1
                 elementary_matrix = row_addition_elementary_matrix(n, j, i, scalar)
                 print(f"elementary matrix for R{j + 1} = R{j + 1} + ({scalar}R{i + 1}):\n {elementary_matrix} \n")
                 matrix = np.dot(elementary_matrix, matrix)
-                print(f"The matrix after elementary operation :\n {matrix}")
+                # print(f"The matrix after elementary operation :\n {matrix}")
                 print(bcolors.OKGREEN,
-                    "------------------------------------------------------------------------------------------------------------------",
-                    bcolors.ENDC)
+                      "------------------------------------------------------------------------------------------------------------------",
+                      bcolors.ENDC)
                 identity = np.dot(elementary_matrix, identity)
     print(f"the counter of the elemntary matrix is:\n {counter}\n")
 
@@ -103,19 +88,25 @@ def make_diagonal_nonzero(matrix, identity):
 
     return matrix, identity
 
-# Date: 19.2.24
-# Group members:
-# Segev Chen 322433400
-# Gad Gadi Hasson 207898123
-# Carmel Dor 316015882
-# Artiom Bondar 332692730
-# Git:https://github.com/IMrMoon/matrix1.git
-# Name:
+
+# the checking if the inverse is the real inverse of the matrix and return if the values
+    # between these 2 arrays are equal in some lvl return true, else return false or if we have nans return false
+def checkInverse(inverseMatrix, matrix):
+    # check the size of the matrix
+    n = matrix.shape[0]
+    # creating a dot multipication between the original matrix to the inverse one
+    product = np.dot(matrix, inverseMatrix)
+    # create a id matrix size n like the matrix
+    identity = np.identity(n)
+    return np.allclose(product, identity)
+
+
+
 if __name__ == '__main__':
     np.set_printoptions(suppress=True, precision=4)
     A = np.array([[0, 5, 7],
                   [3, 1, 4],
-                  [0, 3, 1]])
+                  [0, 0, 1]])
     A_before = A.copy()
 
     try:
@@ -135,19 +126,5 @@ if __name__ == '__main__':
     X = np.dot(A_inverse, B)
 
     print(X)
-
-
-    # the checking if the inverse is the real inverse of the matrix and return if the values
-    # between these 2 arrays are equal in some lvl return true, else return false or if we have nans return false
-    def checkInverse(inverseMatrix, matrix):
-        # check the size of the matrix
-        n = matrix.shape[0]
-        # creating a dot multiplication between the original matrix to the inverse one
-        product = np.dot(matrix, inverseMatrix)
-        # create an id matrix size n like the matrix
-        identity = np.identity(n)
-        return np.allclose(product, identity)
-
-
     invA = A_inverse
     print("the result of the check is: ", checkInverse(invA, A_before))
