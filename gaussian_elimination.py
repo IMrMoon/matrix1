@@ -1,33 +1,16 @@
 import numpy as np
-from numpy.linalg import norm, inv
-
 from colors import bcolors
-from matrix_utility import scalar_multiplication_elementary_matrix
 
 
-def make_diagonal_nonzero(matrix):
-    n = len(matrix)
 
-    for k in range(n):
-        if matrix[k, k] == 0:
-            # Find a non-zero element in the same column below the current zero diagonal element
-            for b in range(k + 1, n):
-                if matrix[b, k] != 0:
-                    # Swap rows to make the diagonal element nonzero
-                    matrix[[k, b], :] = matrix[[b, k], :]
-                    # identity[[k, b], :] = identity[[b, k], :]
 
-    return matrix
 
 
 def gaussianElimination(mat):
     N = len(mat)
 
-    # if np.linalg.det(mat) == 0:
-    #     pass
-
-# IDK if we need...maybe add check for zero in forward?!!!!check GAD
-    make_diagonal_nonzero(mat)
+    # IDK if we need...maybe add check for zero in forward?!!!!check GAD
+    # make_diagonal_nonzero(mat)
 
     singular_flag = forward_substitution(mat)
 
@@ -56,20 +39,16 @@ def forward_substitution(mat):
     for k in range(N):
         # Partial Pivoting: Find the pivot row with the largest absolute value in the current column
 
-        # to make the diagonal to 1 and all the down triangle to zero.
-        scalar = 1.0 / mat[k, k]
-        elementary_matrix = scalar_multiplication_elementary_matrix(N, k, scalar)
-        mat = np.dot(elementary_matrix, mat)
         pivot_row = k
-        v_max = mat[pivot_row][k]
+        v_max = abs(mat[pivot_row][k])
         for i in range(k + 1, N):
             if abs(mat[i][k]) > v_max:
-                v_max = mat[i][k]
+                v_max = abs(mat[i][k])
                 pivot_row = i
 
         # if a principal diagonal element is zero,it denotes that matrix is singular,
         # and will lead to a division-by-zero later.
-        if mat[k][k] == 0:
+        if 0.000000001 > mat[pivot_row][k] > -0.000000001:
             return k  # Matrix is singular
 
         # Swap the current row with the pivot row
@@ -112,6 +91,7 @@ def backward_substitution(mat):
     print("\n", x)
     return x
 
+
 # Date: 19.2.24
 # Group members:
 # Segev Chen 322433400
@@ -121,12 +101,11 @@ def backward_substitution(mat):
 # Git:https://github.com/IMrMoon/matrix1.git
 # Name:
 if __name__ == '__main__':
-
-    A_b = np.array([[1, 2, 3, 4, 5],
-                    [2, 3, 4, 5, 1],
-                    [8, 8, 8, 8, 1],
-                    [24, 15, 22, 1, 8]])
-
+    np.set_printoptions(suppress=True, precision=4)
+    A_b = [[0, -1, 0, -1, -8],
+           [0, 0, 3, -3, -20],
+           [3, 0, 0, 0, -2],
+           [2, 0, 0, 3, 4]]
 
     result = gaussianElimination(A_b)
     if isinstance(result, str):
