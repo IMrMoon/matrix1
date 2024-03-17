@@ -28,30 +28,33 @@ def reorder_dominant_diagonal(matrix):
     return reordered_matrix
 
 
-def DominantDiagonalFix(matrix):
+def DominantDiagonalFix(matrix,b):
     """
     Function to change a matrix to create a dominant diagonal
     :param matrix: Matrix nxn
     :return: Change the matrix to a dominant diagonal
     """
-    # Check if we have a dominant for each column
-    dom = [0] * len(matrix)
+    #Check if we have a dominant for each column
+    dom = [0]*len(matrix)
     result = list()
-    # Find the largest organ in a row
+    new_b = list()
+   # Find the largest organ in a row
     for i in range(len(matrix)):
         for j in range(len(matrix[0])):
-            if (matrix[i][j] > sum(map(abs, map(int, matrix[i]))) - matrix[i][j]):
-                dom[i] = j
+            if (matrix[i][j] > sum(map(abs,map(int,matrix[i])))-matrix[i][j]) :
+                dom[i]=j
     for i in range(len(matrix)):
         result.append([])
         # Cannot dominant diagonal
         if i not in dom:
             print("Couldn't find dominant diagonal.")
-            return matrix
+            return matrix,b
     # Change the matrix to a dominant diagonal
-    for i, j in enumerate(dom):
-        result[j] = (matrix[i])
-    return result
+    for i,j in enumerate(dom):
+        result[j]=(matrix[i])
+        new_b.append(b[j])
+    print("sucsess to make dominant diagonal with row change")
+    return result,new_b
 
 
 def swap_rows_elementary_matrix(n, row1, row2):

@@ -11,9 +11,12 @@ Receives 3 parameters:
 Returns variables:
     1.  S - The minimum number of iterations required to reach the desired accuracy
 """
+
+
 def max_steps(a, b, err):
     s = int(np.floor(- np.log2(err / (b - a)) / np.log2(2) - 1))
     return s
+
 
 """
 Performs Iterative methods for Nonlinear Systems of Equations to determine the roots of the given function f
@@ -26,22 +29,21 @@ Receives 4 parameters:
 Returns variables:
     1.  c - The approximate root of the function f
 """
+
+
 def bisection_method(f, a, b, tol=1e-6):
-    if np.sign(f(a)) == np.sign(f(b)):
-        raise Exception("The scalars a and b do not bound a root")
+    # if np.sign(a) == np.sign(b):
+    #     raise Exception("The scalars a and b do not bound a root")
     c, k = 0, 0
     steps = max_steps(a, b, tol)  # calculate the max steps possible
 
     print("{:<10} {:<15} {:<15} {:<15} {:<15} {:<15} {:<15}".format("Iteration", "a", "b", "f(a)", "f(b)", "c", "f(c)"))
 
     # while the diff af a&b is not smaller than tol, and k is not greater than the max possible steps
-    while abs(b - a) > tol and k < steps:
-        c = a + (b - a) / 2  # Calculation of the middle value
+    while abs(b - a) > tol and k <= steps:
+        c = (a + b) / 2  # Calculation of the middle value
 
-        if c == 0:
-            return  c
-
-        if f(c) == 0 :
+        if f(c) == 0:
             return c  # Procedure completed successfully
 
         if f(c) * f(a) < 0:  # if sign changed between steps
@@ -55,12 +57,24 @@ def bisection_method(f, a, b, tol=1e-6):
     return c  # return the current root
 
 
+def find_all_roots(f, a, b, tol=1e-6):
+    roots = []
+    x = np.linspace(a, b, 1000)  # Divide the interval into smaller sub-intervals
+
+    for i in range(len(x) - 1):
+        if np.sign(f(x[i])) != np.sign(f(x[i + 1])):
+            root = bisection_method(f, x[i], x[i + 1], tol)
+            roots.append(root)
+
+    return roots
+
+
 if __name__ == '__main__':
-    f = lambda x: 1 / x
+    f = lambda x: x**2 - 4
 
     # Adjust the interval to avoid the singularity
-    a = -1
-    b = 1
-    roots = bisection_method(f, a, b)
-    print(bcolors.OKBLUE, f"\nThe equation f(x) has an approximate root in the interval [{a}, {b}] at x = {roots}",
-          bcolors.ENDC)
+    a = -2
+    b = 5
+
+    roots = find_all_roots(f, a, b)
+    print(bcolors.OKBLUE, f"\nThe equation f(x) has approximate roots at {roots}", bcolors.ENDC)

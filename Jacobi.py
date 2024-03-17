@@ -26,16 +26,20 @@ Returns variables:
 
 """
 
+
 def jacobi_iterative(A, b, X0, TOL=1e-16, N=200):
     n = len(A)
     k = 1
+    if not is_square_matrix(A):
+        raise ValueError("matrix must be a square matrix")
 
-    if not is_diagonally_dominant(A):
-        print('Matrix is not diagonally dominant!')
-    else:
+    if is_diagonally_dominant(A):
         print('Matrix is diagonally dominant - preforming jacobi algorithm\n')
+    else:
+        A,b = DominantDiagonalFix(A,b)
 
-        print( "Iteration" + "\t\t\t".join([" {:>12}".format(var) for var in ["x{}".format(i) for i in range(1, len(A) + 1)]]))
+        print("Iteration" + "\t\t\t".join(
+            [" {:>12}".format(var) for var in ["x{}".format(i) for i in range(1, len(A) + 1)]]))
         print("-----------------------------------------------------------------------------------------------")
 
         while k <= N:
@@ -60,11 +64,10 @@ def jacobi_iterative(A, b, X0, TOL=1e-16, N=200):
 
 
 if __name__ == "__main__":
-
-    A = np.array([[3, -1, 1], [0, 2, -1], [1, 1, 4]])
-    b = np.array([4, -1, -3])
+    A = np.array([[3, 1, 1], [1, 1, 3], [1, 3, 1]])
+    b = np.array([7, 7, 11])
 
     x = np.zeros_like(b, dtype=np.double)
     solution = jacobi_iterative(A, b, x)
 
-    print(bcolors.OKBLUE,"\nApproximate solution:", solution)
+    print(bcolors.OKBLUE, "\nApproximate solution:", solution)
