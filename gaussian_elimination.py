@@ -1,16 +1,30 @@
 import numpy as np
+from numpy.linalg import norm, inv
+from condition_of_linear_equations import norm
 from colors import bcolors
+from matrix_utility import scalar_multiplication_elementary_matrix
 
 
+def make_diagonal_nonzero(matrix):
+    n = len(matrix)
 
+    for k in range(n):
+        if matrix[k, k] == 0:
+            # Find a non-zero element in the same column below the current zero diagonal element
+            for b in range(k + 1, n):
+                if matrix[b, k] != 0:
+                    # Swap rows to make the diagonal element nonzero
+                    matrix[[k, b], :] = matrix[[b, k], :]
+                    # identity[[k, b], :] = identity[[b, k], :]
 
+    return matrix
 
 
 def gaussianElimination(mat):
     N = len(mat)
 
     # IDK if we need...maybe add check for zero in forward?!!!!check GAD
-    # make_diagonal_nonzero(mat)
+    #     make_diagonal_nonzero(mat)
 
     singular_flag = forward_substitution(mat)
 
@@ -39,16 +53,21 @@ def forward_substitution(mat):
     for k in range(N):
         # Partial Pivoting: Find the pivot row with the largest absolute value in the current column
 
+        # to make the diagonal to 1 and all the down triangle to zero.
+        # scalar = 1.0 / mat[k, k]
+        # elementary_matrix = scalar_multiplication_elementary_matrix(N, k, scalar)
+        # mat = np.dot(elementary_matrix, mat)
         pivot_row = k
-        v_max = abs(mat[pivot_row][k])
+        v_max = mat[pivot_row][k]
         for i in range(k + 1, N):
             if abs(mat[i][k]) > v_max:
-                v_max = abs(mat[i][k])
+                v_max = mat[i][k]
                 pivot_row = i
 
+        # make here the change
         # if a principal diagonal element is zero,it denotes that matrix is singular,
         # and will lead to a division-by-zero later.
-        if 0.000000001 > mat[pivot_row][k] > -0.000000001:
+        if not mat[k][pivot_row]:
             return k  # Matrix is singular
 
         # Swap the current row with the pivot row
@@ -67,8 +86,7 @@ def forward_substitution(mat):
 
             # filling lower triangular matrix with zeros
             mat[i][k] = 0
-    print(mat)
-
+    # print(mat)
     return -1
 
 
@@ -88,7 +106,7 @@ def backward_substitution(mat):
 
         x[i] = (x[i] / mat[i][i])
     # added!
-    print("\n", x)
+    # print("\n", x)
     return x
 
 
@@ -98,14 +116,14 @@ def backward_substitution(mat):
 # Gad Gadi Hasson 207898123
 # Carmel Dor 316015882
 # Artiom Bondar 332692730
-# Git:https://github.com/IMrMoon/matrix1.git
-# Name:
+# Git: https://github.com/IMrMoon/matrix1.git
+# Name: Segev Chen
 if __name__ == '__main__':
+
     np.set_printoptions(suppress=True, precision=4)
-    A_b = [[0, -1, 0, -1, -8],
-           [0, 0, 3, -3, -20],
-           [3, 0, 0, 0, -2],
-           [2, 0, 0, 3, 4]]
+    A_b = [[-1, -2, 5, 2],
+           [4, -1, 1, 4],
+           [1, 6, 2, 9]]
 
     result = gaussianElimination(A_b)
     if isinstance(result, str):
@@ -114,3 +132,4 @@ if __name__ == '__main__':
         print(bcolors.OKBLUE, "\nSolution for the system:")
         for x in result:
             print("{:.6f}".format(x))
+    print("the norm of the matrix plus the question number: ", norm(A_b) + 3)

@@ -1,5 +1,6 @@
 import numpy as np
 
+
 def is_diagonally_dominant(mat):
     if mat is None:
         return False
@@ -33,14 +34,14 @@ def DominantDiagonalFix(matrix):
     :param matrix: Matrix nxn
     :return: Change the matrix to a dominant diagonal
     """
-    #Check if we have a dominant for each column
-    dom = [0]*len(matrix)
+    # Check if we have a dominant for each column
+    dom = [0] * len(matrix)
     result = list()
-   # Find the largest organ in a row
+    # Find the largest organ in a row
     for i in range(len(matrix)):
         for j in range(len(matrix[0])):
-            if (matrix[i][j] > sum(map(abs,map(int,matrix[i])))-matrix[i][j]) :
-                dom[i]=j
+            if (matrix[i][j] > sum(map(abs, map(int, matrix[i]))) - matrix[i][j]):
+                dom[i] = j
     for i in range(len(matrix)):
         result.append([])
         # Cannot dominant diagonal
@@ -48,8 +49,8 @@ def DominantDiagonalFix(matrix):
             print("Couldn't find dominant diagonal.")
             return matrix
     # Change the matrix to a dominant diagonal
-    for i,j in enumerate(dom):
-        result[j]=(matrix[i])
+    for i, j in enumerate(dom):
+        result[j] = (matrix[i])
     return result
 
 
@@ -73,8 +74,8 @@ def matrix_multiply(A, B):
 
     return np.array(result)
 
-def row_addition_elementary_matrix(n, target_row, source_row, scalar=1.0):
 
+def row_addition_elementary_matrix(n, target_row, source_row, scalar=1.0):
     if target_row < 0 or source_row < 0 or target_row >= n or source_row >= n:
         raise ValueError("Invalid row indices.")
 
@@ -88,7 +89,6 @@ def row_addition_elementary_matrix(n, target_row, source_row, scalar=1.0):
 
 
 def scalar_multiplication_elementary_matrix(n, row_index, scalar):
-
     if row_index < 0 or row_index >= n:
         raise ValueError("Invalid row index.")
 
@@ -100,8 +100,9 @@ def scalar_multiplication_elementary_matrix(n, row_index, scalar):
 
     return np.array(elementary_matrix)
 
+
 # Partial Pivoting: Find the pivot row with the largest absolute value in the current column
-def partial_pivoting(A,i,N):
+def partial_pivoting(A, i, N):
     pivot_row = i
     v_max = A[pivot_row][i]
     for j in range(i + 1, N):
@@ -113,7 +114,6 @@ def partial_pivoting(A,i,N):
     # and will lead to a division-by-zero later.
     if A[i][pivot_row] == 0:
         return "Singular Matrix"
-
 
     # Swap the current row with the pivot row
     if pivot_row != i:
