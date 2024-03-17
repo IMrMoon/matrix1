@@ -12,15 +12,16 @@ def lu(A):
 
         # Partial Pivoting: Find the pivot row with the largest absolute value in the current column
         pivot_row = i
-        v_max = A[pivot_row][i]
+        v_max =  abs(A[pivot_row][i])
         for j in range(i + 1, N):
             if abs(A[j][i]) > v_max:
-                v_max = A[j][i]
+                v_max = abs(A[j][i])
                 pivot_row = j
 
         # if a principal diagonal element is zero,it denotes that matrix is singular,
         # and will lead to a division-by-zero later.
-        if A[i][pivot_row] == 0:
+        if np.round(A[pivot_row][i], 6) == 0:
+            # print("i = " , i, " pivot_row = ", pivot_row)
             raise ValueError("can't perform LU Decomposition")
 
         # Swap the current row with the pivot row
@@ -76,12 +77,16 @@ def lu_solve(A_b):
     print(bcolors.OKBLUE, "\nSolution for the system:")
     for x in result:
         print("{:.6f}".format(x))
+    print(bcolors.ENDC)
 
 
 if __name__ == '__main__':
-    A_b = [[1, -1, 2, -1, -8],
-           [2, -2, 3, -3, -20],
-           [1, 1, 1, 0, -2],
-           [1, -1, 4, 3, 4]]
-
+    np.set_printoptions(suppress=True, precision=4)
+    # A_b = [[1, -1, 2, -1, -8],
+    #        [2, -2, 3, -3, -20],
+    #        [1, 1, 1, 0, -2],
+    #        [1, -1, 4, 3, 4]]
+    A_b = [[-1.41, 2, 0, 1],
+           [1, -1.41, 1, 1],
+           [0, 2, -1.41, 1]]
     lu_solve(A_b)
