@@ -110,12 +110,12 @@ def make_diagonal_nonzero(matrix, identity):
 # Carmel Dor 316015882
 # Artiom Bondar 332692730
 # Git:https://github.com/IMrMoon/matrix1.git
-# Name:
+# Name: Segev Chen
 if __name__ == '__main__':
     np.set_printoptions(suppress=True, precision=4)
-    A = np.array([[0, 5, 7],
-                  [3, 1, 4],
-                  [0, 3, 1]])
+    A = np.array([[-1, -2, 5],
+                  [4, -1, 1],
+                  [1, 6, 2]])
     A_before = A.copy()
 
     try:

@@ -41,6 +41,7 @@ def condition_number(A):
 
     return cond
 
+
 # Date: 19.2.24
 # Group members:
 # Segev Chen 322433400
@@ -48,11 +49,14 @@ def condition_number(A):
 # Carmel Dor 316015882
 # Artiom Bondar 332692730
 # Git:https://github.com/IMrMoon/matrix1.git
-# Name:
+# Name: Segev Chen
 if __name__ == '__main__':
-    A = np.array([[2, 1.7, -2.5],
-                  [1.24, -2, -0.5],
-                  [3, 0.2, 1]])
+    A = np.array([[-1, -2, 5],
+                  [4, -1, 1],
+                  [1, 6, 2]])
     cond = condition_number(A)
 
     print(bcolors.OKGREEN, "\n condition number: ", cond, bcolors.ENDC)
+
+name = 'segev ya shablul'
+print(bcolors.OKBLUE, name)
