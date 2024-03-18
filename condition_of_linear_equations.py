@@ -57,6 +57,3 @@ if __name__ == '__main__':
     cond = condition_number(A)
 
     print(bcolors.OKGREEN, "\n condition number: ", cond, bcolors.ENDC)
-
-name = 'segev ya shablul'
-print(bcolors.OKBLUE, name)

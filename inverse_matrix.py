@@ -30,6 +30,8 @@ def matrix_inverse(matrix):
 
     counter = 0
     for i in range(n):
+        if matrix[i,i] == 0:
+            make_diagonal_nonzero(matrix, identity)
 
         if matrix[i, i] != 1:
             # Scale the current row to make the diagonal element 1
@@ -113,9 +115,11 @@ def make_diagonal_nonzero(matrix, identity):
 # Name: Segev Chen
 if __name__ == '__main__':
     np.set_printoptions(suppress=True, precision=4)
-    A = np.array([[-1, -2, 5],
-                  [4, -1, 1],
-                  [1, 6, 2]])
+    A = np.array([[-1,1,3, -3, 1],
+                  [3, -3, -4,2,3],
+                  [2, 1, -5,-3,5],
+                  [-5,-6,4,1,3],
+                  [3,-2,-2,-3,5]])
     A_before = A.copy()
 
     try:
@@ -129,7 +133,7 @@ if __name__ == '__main__':
         print(str(e))
     # returnAtoNormal(A)
     # the results vector
-    B = np.array([9, 18, 27])
+    B = np.array([3,8,2,14,6])
 
     # dot mul the inverse matrix A with the B vector of the results to calculate the X which is the final result vector
     X = np.dot(A_inverse, B)
